@@ -1,0 +1,24 @@
+<nav>
+    <div class="nav-wrapper">
+        <a href="/" class="brand-logo"><img style="height: 55px; margin: 5px 0 0 5px" src="/images/mytd_grey.png"></a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a href="/accounts">Accounts</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/contact">Contact</a></li>
+            <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">Sign In & Sign Up<i class="material-icons right">arrow_drop_down</i></a></li>
+        </ul>
+    </div>
+</nav>
+
+<ul id="dropdown1" class="dropdown-content">
+    <li><a id="login" href="#">Sign in</a></li>
+    <li><a id="signup" href="#">Sign up</a></li>
+</ul>
+
+<div id="#modal-login" class="modal modal-login">
+    {{>login}}
+</div>
+
+<div id="#modal-signup" class="modal modal-signup">
+    {{>signup}}
+</div>
