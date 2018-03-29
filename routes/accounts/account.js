@@ -1,11 +1,18 @@
 let express = require('express');
 let router = express.Router();
-let dummy = require('./dummydata');
+let models = require('../../database/models');
 
 
 router.get('/accounts/:id', function(req, res, next) {
-    let id = req.params.id;
-    res.render('account', {title: "Accounts", user: dummy[id]});
+    let userId = req.params.id;
+    models.account.findAll({
+        where: {
+            id: userId
+        }
+    }).then(result => {
+        res.render('account', {title: "Accounts", user: result[0]});
+    });
+
 });
 
 module.exports = router;

@@ -51,6 +51,10 @@ let Weight = config.db.define( 'weight', {
     }
 });
 
+Account.sync();
+Training.sync();
+Weight.sync();
+
 models.account = Account;
 models.training = Training;
 models.weight = Weight;
