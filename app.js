@@ -10,8 +10,8 @@ let bodyParser = require('body-parser');
 let index = require('./routes/index');
 let about = require('./routes/about');
 let contact = require('./routes/contact');
-let accounts = require('./routes/accounts');
-let account = require('./routes/account');
+let accounts = require('./routes/accounts/accounts');
+let account = require('./routes/accounts/account');
 
 let app = express();
 

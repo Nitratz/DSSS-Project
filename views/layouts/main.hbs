@@ -5,26 +5,10 @@
 {{{ body }}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+<script src="http://localhost:3000/js/user_modals.js"></script>
 <script>
-    $(document).ready(function () {
-        $(".dropdown-trigger").dropdown({hover: false});
-    });
-
     let carousel = document.querySelector('.carousel');
-    let login = document.querySelector('.modal-login');
-    let signup = document.querySelector('.modal-signup');
-
     let iCarousel = M.Carousel.init(carousel, {indicators: true});
-    let iLogin = M.Modal.init(login);
-    let iSignup = M.Modal.init(signup);
-
-    $('#login').click(function () {
-        iLogin.open();
-    });
-
-    $('#signup').click(function () {
-        iSignup.open();
-    });
 </script>
 </body>
 </html>
