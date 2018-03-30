@@ -1,17 +1,20 @@
 let express = require('express');
 let exphbs  = require('express-handlebars');
 let path = require('path');
-let logWin = require('winston');
 let favicon = require('serve-favicon');
 let logger = require('morgan');
 let cookieParser = require('cookie-parser');
 let bodyParser = require('body-parser');
+let jwt = require('jsonwebtoken');
 
 let index = require('./routes/index');
 let about = require('./routes/about');
 let contact = require('./routes/contact');
 let accounts = require('./routes/accounts/accounts');
 let account = require('./routes/accounts/account');
+let authUser = require('./routes/login');
+let trainings = require('./routes/trainings');
+let weights = require('./routes/weights');
 
 let app = express();
 
@@ -29,11 +32,28 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(function(req, res, next) {
+    if (req.headers && req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
+        jwt.verify(req.headers.authorization.split(' ')[1], 'MyTD-RESTAPI', function(err, decode) {
+            if (err)
+              req.user = undefined;
+            req.user = decode;
+            next();
+        });
+    } else {
+        req.user = undefined;
+        next();
+    }
+});
+
 app.use('/', index);
-app.use('/', about);
-app.use('/', contact);
-app.use('/', accounts);
-app.use('/', account);
+app.use('/tokens', authUser);
+app.use('/about', about);
+app.use('/contact', contact);
+app.use('/accounts', accounts);
+app.use('/accounts', account);
+app.use('/training-activities', trainings);
+app.use('/weights', weights);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

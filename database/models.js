@@ -25,7 +25,7 @@ let Account = config.db.define( 'account', {
 let Training = config.db.define( 'training', {
     id_account: {
         type: Sequelize.INTEGER,
-        primaryKey: true,
+        primaryKey: false,
     },
     start: {
         type: Sequelize.DATE,
@@ -41,7 +41,7 @@ let Training = config.db.define( 'training', {
 let Weight = config.db.define( 'weight', {
     id_account: {
         type: Sequelize.INTEGER,
-        primaryKey: true,
+        primaryKey: false,
     },
     time: {
         type: Sequelize.DATE,

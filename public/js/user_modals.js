@@ -29,6 +29,21 @@ $('#login-submit').click(() => {
        return;
    }
 
+    $.ajax({
+        type: "POST",
+        url: "/accounts/tokens",
+        data: {
+            username,
+            password
+        },
+        success: function(result) {
+            localStorage.api_token = result.message.token;
+            localStorage.userId = result.message.userId;
+        },
+        error: function(xhr, text, error) {
+
+        }
+    });
 });
 
 $('#register-submit').click(() => {
@@ -46,11 +61,11 @@ $('#register-submit').click(() => {
         return;
     }
     if (!birthdate) {
-        M.toast({html: 'Password is required'});
+        M.toast({html: 'Birthdate is required'});
         return;
     }
     if (!city) {
-        M.toast({html: 'Password is required'});
+        M.toast({html: 'City is required'});
         return;
     }
 
