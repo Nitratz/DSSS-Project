@@ -19,10 +19,12 @@ router.post("/", function(req, res) {
             userDB = userDB[0];
             bcrypt.compare(user.password, userDB.password, function(err, bRes) {
                 if (bRes === true) {
-                    res.status(200).send(resData(true, 200, {
+                    let myRes = {
                         userId: userDB.id,
                         token: jwt.sign({username: user.username, _id: userDB.id}, 'MyTD-RESTAPI', {expiresIn: 86400})
-                }));
+                    };
+                    req.session.authorization = "Bearer " + myRes.token;
+                    res.status(200).send(resData(true, 200, myRes));
                 } else {
                     res.status(401).send(resData(false, 401, "Authentication failed. Wrong password"));
                 }

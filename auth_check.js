@@ -2,6 +2,6 @@ module.exports = function(req, res, next) {
     if (req.user) {
         next();
     } else {
-        return res.status(401).render('error');
+        return res.status(401).render('error', { error: '401' });
     }
 };

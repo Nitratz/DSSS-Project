@@ -3,11 +3,13 @@ let router = express.Router();
 let models = require('../../database/models');
 let resData = require('../../response');
 let bcrypt = require('bcrypt');
-let jwt = require('jsonwebtoken');
 
 router.get('/', function(req, res, next) {
     models.account.findAll({}).then(result => {
-        res.render('accounts', {title: "Accounts", users: result });
+        result.forEach((elem) => {
+           elem.birthdate = new Date(elem.birthdate).toLocaleDateString("en-US");
+        });
+        res.render('accounts', {title: "Accounts", users: result});
     }, err => {
         next(err);
     });

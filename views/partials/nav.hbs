@@ -2,10 +2,13 @@
     <div class="nav-wrapper">
         <a href="/" class="brand-logo"><img style="height: 55px; margin: 5px 0 0 5px" src="/images/mytd_grey.png"></a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li id="training-nav" style="display: none"><a id="new-training" href="#!">New training</a></li>
+            <li id="weight-nav" style="display: none"><a id="new-weight" href="#!">New weight</a></li>
             <li><a href="/accounts">Accounts</a></li>
             <li><a href="/about">About</a></li>
             <li><a href="/contact">Contact</a></li>
-            <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">Sign In & Sign Up<i class="material-icons right">arrow_drop_down</i></a></li>
+            <li id="login-nav"><a class="dropdown-trigger" href="#!" data-target="dropdown1">Sign In & Sign Up<i class="material-icons right">arrow_drop_down</i></a></li>
+            <li id="logout-nav" style="display: none"><a id="logout-submit" href="#!">Logout</a></li>
         </ul>
     </div>
 </nav>
@@ -15,10 +18,18 @@
     <li><a id="signup" href="#">Sign up</a></li>
 </ul>
 
-<div id="#modal-login" class="modal modal-login">
+<div id="modal-login" class="modal modal-login">
     {{>login}}
 </div>
 
-<div id="#modal-signup" class="modal modal-signup">
+<div id="modal-signup" class="modal modal-signup">
     {{>signup}}
+</div>
+
+<div id="modal-training" class="modal modal-training">
+    {{>training}}
+</div>
+
+<div id="modal-weight" class="modal modal-weight">
+    {{>weight}}
 </div>

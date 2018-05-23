@@ -9,8 +9,8 @@ router.get('/:id', function(req, res, next) {
         where: {
             id: userId
         }
-    }).then(result => {
-        res.render('account', {title: "Account", user: result[0]});
+    }).then(user => {
+        res.render('account', {title: "Account", user: user[0]});
     });
 
 });

@@ -5,11 +5,16 @@
 {{{ body }}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
 <script src="http://localhost:3000/js/user_modals.js"></script>
 <script>
     let carousel = document.querySelector('.carousel');
     let iCarousel = M.Carousel.init(carousel, {indicators: true});
+    if (localStorage.logged === "true") {
+        $('#login-nav').css("display", "none");
+        $('#logout-nav').css("display", "block");
+        $('#training-nav').css("display", "block");
+        $('#weight-nav').css("display", "block");
+    }
 </script>
 </body>
 </html>

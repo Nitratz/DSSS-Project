@@ -15,7 +15,7 @@ let Account = config.db.define( 'account', {
         type: Sequelize.TEXT,
     },
     birthdate: {
-        type: Sequelize.DATE,
+        type: Sequelize.BIGINT,
     },
     city: {
         type: Sequelize.TEXT,
@@ -28,10 +28,10 @@ let Training = config.db.define( 'training', {
         primaryKey: false,
     },
     start: {
-        type: Sequelize.DATE,
+        type: Sequelize.BIGINT,
     },
     stop: {
-        type: Sequelize.DATE,
+        type: Sequelize.BIGINT,
     },
     description: {
         type: Sequelize.TEXT,
@@ -44,7 +44,7 @@ let Weight = config.db.define( 'weight', {
         primaryKey: false,
     },
     time: {
-        type: Sequelize.DATE,
+        type: Sequelize.BIGINT,
     },
     weight: {
         type: Sequelize.INTEGER,

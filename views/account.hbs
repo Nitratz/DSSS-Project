@@ -1,5 +1,127 @@
 <div class="row">
     <div class="col s6 offset-s3">
-        <h4>Hello {{user.username}}</h4>
+        <h4 style="text-align: center">Profile : {{user.username}}</h4>
+        <div class="card-panel large">
+            <ul class="collection tab-trainings" style="height:200px; overflow:hidden; overflow-y:scroll; border: #ee6e73">
+
+            </ul>
+        </div>
     </div>
 </div>
+<canvas id="myChart" width="1280" height="400"></canvas>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+<script>
+
+    let userSelected = window.location.pathname.split('/')[2];
+
+    $.ajax({
+        type: "GET",
+        url: "/weights/" + userSelected,
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function (result) {
+            let weights = result.message;
+            let wLabels = [];
+            let wValues = [];
+
+            weights.sort((a, b) => {
+                if (a.time < b.time)
+                    return -1;
+                if (a.time > b.time)
+                    return 1;
+                return 0;
+            });
+            weights.forEach((element => {
+                element.time = new Date(element.time);
+                wLabels.push(formatDate(element.time));
+                wValues.push(element.weight);
+            }));
+            createChart(wLabels, wValues);
+        },
+        error: function (xhr, text, error) {
+
+        }
+    });
+
+    $.ajax({
+        type: "GET",
+        url: "/training-activities/" + userSelected,
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function (result) {
+            let trainings = result.message;
+            trainings.sort((a, b) => {
+                if (a.start < b.start)
+                    return -1;
+                if (a.start > b.start)
+                    return 1;
+                return 0;
+            });
+
+            createList(trainings);
+        },
+        error: function (xhr, text, error) {
+
+        }
+    });
+
+    function createList(trainings) {
+        trainings.forEach(element => {
+            element.start = new Date(element.start);
+            element.stop = new Date(element.stop);
+            $(".tab-trainings").append("<li class=\"collection-item avatar\">" +
+            "<img src=\"../images/training.png\" alt=\"\" class=\"circle\">" +
+            "<span class=\"title\">" + element.description + "</span>" +
+            "<p>" + formatDateTime(element.start) + "<br>\n" + formatDateTime(element.stop) + "\n</p></li>");
+        });
+    }
+
+    function formatDate(date) {
+        let day = date.getDate();
+        let monthIndex = date.getMonth() + 1;
+        monthIndex = (monthIndex <= 9 ? '0' + monthIndex : monthIndex);
+        let year = date.getFullYear();
+
+        return day + '/' + monthIndex + '/' + year;
+    }
+
+    function formatDateTime(date) {
+        let day = date.getDate();
+        let monthIndex = date.getMonth() + 1;
+        let year = date.getFullYear();
+        let hour = date.getHours();
+        let min = date.getMinutes();
+        monthIndex = (monthIndex <= 9 ? '0' + monthIndex : monthIndex);
+        hour = (hour <= 9 ? '0' + hour : hour);
+        min = (min <= 9 ? '0' + min : min);
+
+        return day + '/' + monthIndex + '/' + year + " " + hour + ":" + min;
+    }
+
+    function createChart(wLabels, wValues) {
+        let ctx = document.getElementById("myChart").getContext('2d');
+        let myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: wLabels,
+                datasets: [{
+                    label: 'Weight in KG',
+                    data: wValues,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero:true
+                        }
+                    }]
+                }
+            }
+        });
+    }
+</script>
