@@ -13,7 +13,7 @@
     "express": "~4.15.5",
     "express-handlebars": "^3.0.0",
     "express-session": "^1.15.6",
-    "jsonwebtoken": "^8.2.0",
+    "jsonwebtoken": "^9.0.0",
     "morgan": "~1.9.0",
     "sequelize": "^4.37.4",
     "serve-favicon": "~2.4.5",
